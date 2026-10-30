@@ -21,7 +21,7 @@
 
   /* HEADER */
   header { background: linear-gradient(135deg, var(--navy2) 0%, #0d1e3a 60%, #1a1040 100%); border-bottom: 2px solid var(--accent); padding: 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 24px rgba(0,0,0,0.5); }
-  .header-inner { max-width: 1400px; margin: 0 auto; display: flex; align-items: center; gap: 16px; padding: 10px 20px; }
+  .header-inner { max-width: 1240px; margin: 0 auto; display: flex; align-items: center; gap: 16px; padding: 10px 20px; }
   .logo-badge { background: var(--accent); color: var(--navy); font-family: 'Bebas Neue',sans-serif; font-size: 22px; letter-spacing: 1px; padding: 6px 14px; border-radius: 6px; white-space: nowrap; flex-shrink: 0; }
   .header-title h1 { font-family: 'Bebas Neue',sans-serif; font-size: clamp(18px,4vw,28px); letter-spacing: 2px; color: #fff; line-height: 1; }
   .header-title p { font-size: 12px; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-top: 2px; }
@@ -32,15 +32,15 @@
   /* NAV */
   .main-nav { background: var(--surface); border-bottom: 1px solid var(--border); overflow-x: auto; scrollbar-width: none; }
   .main-nav::-webkit-scrollbar { display: none; }
-  .main-nav-inner { max-width: 1400px; margin: 0 auto; display: flex; padding: 0 12px; }
-  .tab-btn { font-family: 'Barlow Condensed',sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); background: none; border: none; border-bottom: 3px solid transparent; padding: 14px 16px 11px; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+  .main-nav-inner { max-width: 1240px; margin: 0 auto; display: flex; gap: 26px; padding: 0 20px; }
+  .tab-btn { font-family: 'Barlow Condensed',sans-serif; font-size: 14px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); background: none; border: none; border-bottom: 3px solid transparent; padding: 14px 0 11px; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
   .tab-btn:hover { color: var(--text); }
   .tab-btn.active { color: #fff; border-bottom-color: var(--accent); }
   .tab-btn.fem.active { border-bottom-color: var(--fem); }
   .tab-btn.masc.active { border-bottom-color: var(--masc); }
 
   /* CONTENT */
-  .content { max-width: 1400px; margin: 0 auto; padding: 24px 16px 60px; }
+  .content { max-width: 1240px; margin: 0 auto; padding: 24px 20px 60px; }
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
 
@@ -222,7 +222,10 @@
   .pres-closed { background: rgba(148,163,184,0.1); border-color: rgba(148,163,184,0.3); }
   .pres-closed strong { color: var(--text); }
 
-  .pres-intro { font-size: 16px; line-height: 1.7; color: var(--text); max-width: 860px; }
+  .pres-intro { font-size: 16px; line-height: 1.7; color: var(--text); }
+  .intro-row { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 28px; align-items: center; margin-bottom: 8px; }
+  .intro-row .keyfacts { grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0; }
+  @media (max-width: 900px) { .intro-row { grid-template-columns: 1fr; } }
   .pres-intro p + p { margin-top: 12px; }
   .pres-intro strong { color: #fff; }
 
@@ -413,7 +416,7 @@
       <!-- FORM -->
       <div class="admin-form" id="admin-form-section">
         <div style="display:flex;align-items:center;justify-content:space-between;">
-          <p style="font-size:13px;color:var(--green);">✓ Connecté</p>
+          <p style="font-size:13px;color:var(--green);" id="admin-role-lbl">✓ Connecté</p>
           <button class="admin-logout" onclick="doLogout()">Déconnexion</button>
         </div>
 
@@ -431,7 +434,7 @@
             <label class="switch"><input type="checkbox" id="set-inscriptions" onchange="saveSetting('inscriptions_ouvertes', this.checked)"><span class="slider"></span></label>
           </div>
           <div class="switch-row">
-            <div class="sw-txt"><b>Candidatures des sélections ouvertes</b><span>Désactive-le après la date limite : le formulaire est remplacé par un message « candidatures closes ».</span></div>
+            <div class="sw-txt"><b>Candidatures des sélections ouvertes</b><span>Le formulaire se ferme aussi tout seul après la date limite (réglée en haut du code). Désactive-le pour le fermer plus tôt.</span></div>
             <label class="switch"><input type="checkbox" id="set-candidatures" onchange="saveSetting('candidatures_ouvertes', this.checked)"><span class="slider"></span></label>
           </div>
           <div class="form-group">
@@ -556,9 +559,10 @@
     <div class="pres-alert">
       <span style="font-size:20px">⏳</span>
       <div><strong id="alert-title">Le nombre de places est limité, ne tardez pas à valider votre inscription !</strong><br>
-      <span id="alert-open-soon">Les inscriptions ouvrent le <b data-cfg="ouvertureInscriptionsTxt"></b> sur ce site. </span>Remplissez le formulaire d'inscription, puis payez l'engagement via le lien fourni à la fin du formulaire. Jusqu'au <b data-cfg="dateLimiteClubs"></b>, une seule équipe par sexe et par club. Ensuite, les places libres sont attribuées aux équipes de la liste d'attente.</div>
+      <span id="alert-open-soon">Les inscriptions ouvrent le <b data-cfg="ouvertureInscriptionsTxt"></b> sur ce site. Équipes de sélection ou de regroupement de clubs : candidature avant le <b data-cfg="dateLimiteCandidatures"></b>. </span>Remplissez le formulaire d'inscription, puis payez l'engagement via le lien fourni à la fin du formulaire. Jusqu'au <b data-cfg="dateLimiteClubs"></b>, une seule équipe par sexe et par club. Ensuite, les places libres sont attribuées aux équipes de la liste d'attente.</div>
     </div>
 
+    <div class="intro-row">
     <div class="pres-intro">
       <p>Le Comité du Var organise chaque année un grand tournoi pour les M11 en fin de saison, <strong>sous le soleil de la Méditerranée</strong>. Il réunit habituellement <strong>40 équipes filles et 40 équipes garçons</strong> venues de toute la France et de pays voisins (Italie, Suisse, Espagne…), <strong>mais aussi du bout du monde : La Réunion, Mayotte, la Guadeloupe !</strong> Depuis 2009, le tournoi est approuvé par la Confédération Européenne de Volley-Ball.</p>
       <p>Les enfants y vivent un week-end comme une phase finale de Coupe de France ou les Mini-Volleyades, avec en plus <strong>plein de récompenses pour tous les participants</strong> : tee-shirt, gourde, gobelet, sifflet, médaille et un cadeau (en 2026, un sac banane), sans oublier les trophées du podium et les récompenses spéciales. Avec autant d'équipes, chacun joue à son niveau : les meilleurs se battent pour le podium (<strong>idéal pour préparer la phase finale de Coupe de France M11, du 11 au 13 juin 2027</strong>), d'autres prennent de l'expérience, et les plus débutants s'arrachent pour une victoire qui les comble de bonheur !</p>
@@ -570,6 +574,7 @@
       <div class="keyfact"><div class="val">8 à 9</div><div class="lbl">matchs joués<br>par chaque équipe</div></div>
       <div class="keyfact"><div class="val" data-cfg="prixTxt"></div><div class="lbl">par équipe<br>dotation incluse</div></div>
     </div>
+    </div>
 
     <div class="section-header"><h2>Règlement</h2><div class="section-line"></div></div>
     <div class="info-grid">
@@ -579,7 +584,7 @@
           <li>Ouvert aux joueurs et joueuses <strong>nés en <span data-cfg="naissance"></span> et après</strong>, licenciés auprès de leur fédération nationale.</li>
           <li><strong>1 équipe par sexe et par club</strong> jusqu'au <span data-cfg="dateLimiteClubs"></span>. Ensuite, les places libres vont à la liste d'attente.</li>
           <li>Équipes de <strong>2 joueurs + 2 remplaçants maximum</strong>, et 1 entraîneur par équipe.</li>
-          <li>Équipes de Comité, de bassin de pratique ou de regroupement de clubs acceptées selon le <a href="#" onclick="showTab('candidature');return false" style="color:var(--accent)">règlement particulier</a>.</li>
+          <li>Équipes de Comité, de bassin de pratique ou de regroupement de clubs acceptées selon le <a href="#" onclick="showTab('candidature');return false" style="color:var(--accent)">règlement particulier</a>, sur candidature avant le <span data-cfg="dateLimiteCandidatures"></span>.</li>
         </ul>
       </div>
       <div class="info-card">
@@ -698,6 +703,7 @@
         <ul>
           <li>Sont concernées les équipes de sélection (Comité, Ligue), de bassin de pratique ou de regroupement de clubs.</li>
           <li><strong>4 équipes de ce type au maximum</strong> par tableau (masculin et féminin).</li>
+          <li><strong>Candidatures à envoyer avant le <span data-cfg="dateLimiteCandidatures"></span></strong>, avec le formulaire ci-dessous.</li>
           <li>Les GSA, Comités ou Ligues font leur demande avec le formulaire ci-dessous. Après étude des candidatures et des motivations, <strong>la réponse est communiquée <span data-cfg="dateReponseSelections"></span></strong>, date d'ouverture des inscriptions.</li>
           <li>Une fois la réponse reçue, il faut remplir le <a href="#" onclick="showTab('inscription');return false" style="color:var(--accent)">formulaire d'inscription normal</a> et régler l'engagement pour valider la participation.</li>
           <li>Un club dont des licenciés jouent dans une sélection ou un regroupement de clubs ne peut pas s'engager dans le même tableau (masculin / féminin).</li>
@@ -914,6 +920,8 @@ const TIP = {
   naissance: 2016,                             // joueurs nés en … et après
   prix: 170,                                   // € par équipe
   dateLimiteClubs: '15 février 2027',          // 1 équipe par sexe et par club jusqu'à cette date
+  dateLimiteCandidatures: '30 décembre 2026',   // candidatures des sélections à envoyer avant cette date
+  fermetureCandidatures: '2026-12-31',          // le formulaire se ferme automatiquement ce jour-là à 0h (AAAA-MM-JJ)
   dateReponseSelections: 'avant le 15 janvier 2027',   // réponse aux candidatures des sélections
   ouvertureInscriptions: '2027-01-15',         // ouverture automatique du formulaire des clubs (AAAA-MM-JJ)
   ouvertureInscriptionsTxt: 'vendredi 15 janvier 2027',
@@ -1512,7 +1520,8 @@ function searchTeam(query) {
 
 // ======================== ADMIN ========================
 let adminLoggedIn = false;
-let ADMIN_PWD = '';   // gardé en mémoire le temps de la session, vérifié côté Supabase
+let ADMIN_PWD = '';
+let ADMIN_ROLE = '';   // 'full' = accès complet · 'scores' = saisie des résultats uniquement   // gardé en mémoire le temps de la session, vérifié côté Supabase
 
 function toggleAdminPanel() {
   document.getElementById('admin-overlay').classList.add('open');
@@ -1522,11 +1531,30 @@ function toggleAdminPanel() {
 function closeAdmin() { document.getElementById('admin-overlay').classList.remove('open'); }
 function closeAdminOnBg(e) { if (e.target === document.getElementById('admin-overlay')) closeAdmin(); }
 
+// Rôle lié au mot de passe, vérifié par Supabase (les mots de passe ne sont jamais dans le code)
+async function fetchRole(pwd) {
+  try {
+    const r = await sbRpc('admin_role', { pwd });
+    return r === 'full' || r === 'scores' ? r : '';
+  } catch(e) {
+    // Ancienne base sans la fonction admin_role : seul l'accès complet existe
+    return (await sbRpc('check_admin', { pwd })) === true ? 'full' : '';
+  }
+}
+
+function applyRole() {
+  const full = ADMIN_ROLE === 'full';
+  document.querySelectorAll('.admin-tab').forEach(t => { t.hidden = !full && t.dataset.pane !== 'scores'; });
+  document.getElementById('admin-role-lbl').textContent = full ? '✓ Connecté · accès complet' : '✓ Connecté · saisie des résultats';
+  if (!full) showAdminPane('scores');
+}
+
 function showAdminForm() {
   document.getElementById('admin-login-section').style.display = 'none';
   document.getElementById('admin-form-section').classList.add('visible');
   document.getElementById('admin-toggle-btn').classList.add('active');
-  fillAdminSettings();
+  if (ADMIN_ROLE === 'full') fillAdminSettings();
+  applyRole();
   updateTourOptions();
   applyMode();
 }
@@ -1537,12 +1565,13 @@ async function doLogin() {
   if (!pwd) return;
   err.textContent = 'Vérification…';
   try {
-    const ok = await sbRpc('check_admin', { pwd });
-    if (ok === true) {
-      adminLoggedIn = true; ADMIN_PWD = pwd;
+    const role = await fetchRole(pwd);
+    if (role) {
+      adminLoggedIn = true; ADMIN_PWD = pwd; ADMIN_ROLE = role;
       try { sessionStorage.setItem('tip_admin', pwd); } catch(e) {}
       err.textContent = '';
       showAdminForm();
+      if (role === 'full') showAdminPane('site');
     } else {
       err.textContent = 'Mot de passe incorrect';
     }
@@ -1552,7 +1581,7 @@ async function doLogin() {
   }
 }
 function doLogout() {
-  adminLoggedIn = false; ADMIN_PWD = '';
+  adminLoggedIn = false; ADMIN_PWD = ''; ADMIN_ROLE = '';
   try { sessionStorage.removeItem('tip_admin'); } catch(e) {}
   document.getElementById('admin-login-section').style.display = '';
   document.getElementById('admin-form-section').classList.remove('visible');
@@ -1928,6 +1957,7 @@ function applyConfig() {
     prixTxt: TIP.prix + ' €',
     dateLimiteClubs: TIP.dateLimiteClubs,
     dateReponseSelections: TIP.dateReponseSelections,
+    dateLimiteCandidatures: TIP.dateLimiteCandidatures,
     ouvertureInscriptionsTxt: TIP.ouvertureInscriptionsTxt,
   };
   document.querySelectorAll('[data-cfg]').forEach(el => {
@@ -1988,7 +2018,7 @@ function applyMode() {
     sub.innerHTML = r.edition + 'ème édition &nbsp;·&nbsp; Comité du Var de Volley-Ball';
   }
   // Formulaire des sélections ouvert / clos
-  const candOpen = SETTINGS.candidatures_ouvertes === true;
+  const candOpen = SETTINGS.candidatures_ouvertes === true && new Date() < new Date(TIP.fermetureCandidatures + 'T00:00:00');
   const candForm = document.getElementById('cand-form'), sent = !!candForm.dataset.sent;
   if (!sent) candForm.hidden = !candOpen;
   document.getElementById('cand-closed').hidden = candOpen || sent;
@@ -2307,8 +2337,9 @@ async function init() {
   // Reconnexion admin automatique pendant la session du navigateur
   try {
     const saved = sessionStorage.getItem('tip_admin');
-    if (saved && await sbRpc('check_admin', { pwd: saved }) === true) {
-      adminLoggedIn = true; ADMIN_PWD = saved;
+    const savedRole = saved ? await fetchRole(saved) : '';
+    if (savedRole) {
+      adminLoggedIn = true; ADMIN_PWD = saved; ADMIN_ROLE = savedRole;
       document.getElementById('admin-toggle-btn').classList.add('active');
       document.getElementById('admin-login-section').style.display = 'none';
       document.getElementById('admin-form-section').classList.add('visible');
