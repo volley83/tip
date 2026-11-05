@@ -354,6 +354,30 @@
   .btn-sm:hover { border-color: rgba(255,255,255,0.25); color: #fff; }
   .btn-sm.green { background: var(--green); border-color: var(--green); color: #fff; }
   .btn-sm.red { color: #fca5a5; }
+  .cand-warning { display: flex; gap: 16px; align-items: flex-start; background: rgba(239,68,68,0.12); border: 2px solid rgba(239,68,68,0.6); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 20px; font-size: 15px; line-height: 1.55; }
+  .cand-warning .cw-icon { font-size: 34px; line-height: 1; }
+  .cand-warning .cw-title { font-family: 'Bebas Neue',sans-serif; font-size: 26px; letter-spacing: .5px; color: #fca5a5; line-height: 1.1; margin-bottom: 6px; }
+  .cand-warning p { margin: 6px 0 0; }
+  .cand-warning b { color: #fff; }
+  .cand-warning a { color: var(--accent); font-weight: 600; }
+  .cand-item.clickable { cursor: pointer; transition: border-color .15s; }
+  .cand-item.clickable:hover { border-color: var(--accent); }
+  .cand-item .ci-open { color: var(--accent); font-size: 12px; }
+  .cand-detail { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 3000; display: flex; align-items: center; justify-content: center; padding: 16px; }
+  .cand-detail[hidden] { display: none; }
+  .cand-detail .cd-box { background: var(--navy); border: 1px solid var(--border); border-radius: 12px; width: 100%; max-width: 640px; max-height: 90vh; overflow-y: auto; padding: 22px 24px; }
+  .cand-detail .cd-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+  .cand-detail h3 { margin: 0; font-family: 'Bebas Neue',sans-serif; font-size: 28px; color: #fff; letter-spacing: .5px; }
+  .cand-detail .cd-close { background: none; border: none; color: var(--text-muted); font-size: 26px; cursor: pointer; line-height: 1; }
+  .cand-detail dl { display: grid; grid-template-columns: 150px 1fr; gap: 8px 14px; margin: 0; font-size: 14px; }
+  .cand-detail dt { color: var(--text-muted); }
+  .cand-detail dd { margin: 0; color: var(--text); word-break: break-word; }
+  .cand-detail dd a { color: var(--accent); }
+  .cand-detail .cd-motiv { margin-top: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; white-space: pre-wrap; font-size: 14px; line-height: 1.55; }
+  .cand-detail .cd-sec { margin-top: 16px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); font-weight: 700; }
+  .cand-detail .cd-actions { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+  .cand-detail select { background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: 6px; padding: 6px 8px; }
+  @media (max-width: 560px) { .cand-detail dl { grid-template-columns: 1fr; gap: 2px; } .cand-detail dt { margin-top: 8px; } }
   .cand-count { font-family: 'Bebas Neue',sans-serif; font-size: 40px; color: var(--accent); line-height: 1; }
   .cand-list { display: flex; flex-direction: column; gap: 8px; max-height: 420px; overflow-y: auto; }
   .cand-item { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-size: 13px; line-height: 1.45; }
@@ -562,7 +586,7 @@
     <div class="pres-alert">
       <span style="font-size:20px">⏳</span>
       <div><strong id="alert-title">Le nombre de places est limité, ne tardez pas à valider votre inscription !</strong><br>
-      <span id="alert-open-soon">Les inscriptions ouvrent le <b data-cfg="ouvertureInscriptionsTxt"></b> sur ce site. Équipes de sélection ou de regroupement de clubs : candidature avant le <b data-cfg="dateLimiteCandidatures"></b>. </span>Remplissez le formulaire d'inscription, puis payez l'engagement via le lien fourni à la fin du formulaire. Jusqu'au <b data-cfg="dateLimiteClubs"></b>, une seule équipe par sexe et par club. Ensuite, les places libres sont attribuées aux équipes de la liste d'attente.</div>
+      <span id="alert-open-soon">Ouverture des inscriptions le <b data-cfg="ouvertureInscriptionsTxt"></b> sur ce site. Équipes de sélection ou de regroupement de clubs : candidature avant le <b data-cfg="dateLimiteCandidatures"></b>. </span>Remplissez le formulaire d'inscription, puis payez l'engagement via le lien fourni à la fin du formulaire. Jusqu'au <b data-cfg="dateLimiteClubs"></b>, une seule équipe par sexe et par club. Ensuite, les places libres sont attribuées aux équipes de la liste d'attente.</div>
     </div>
 
     <div class="intro-row">
@@ -677,7 +701,7 @@
 
     <div id="insc-soon" class="pres-alert" hidden>
       <span style="font-size:20px">📅</span>
-      <div><strong>Les inscriptions ouvrent le <span data-cfg="ouvertureInscriptionsTxt"></span>.</strong><br>
+      <div><strong>Ouverture des inscriptions le <span data-cfg="ouvertureInscriptionsTxt"></span>.</strong><br>
       Le formulaire apparaîtra ici à cette date. Le nombre de places est limité : notez la date !<br>
       Équipe de sélection ou de regroupement de clubs ? La <a href="#" onclick="showTab('candidature');return false" style="color:var(--accent)">candidature sélection</a> est ouverte dès maintenant.</div>
     </div>
@@ -703,6 +727,14 @@
   <div id="tab-candidature" class="tab-panel">
     <div class="section-header"><h2>Candidature sélection</h2><div class="section-badge">Sélections ou regroupements de clubs</div><div class="section-line"></div></div>
     <div class="pub-form-wrap">
+      <div class="cand-warning">
+        <div class="cw-icon">⚠️</div>
+        <div>
+          <div class="cw-title">Formulaire réservé aux sélections et regroupements de clubs</div>
+          <p>Il concerne uniquement les équipes de <b>Comité</b>, de <b>Ligue</b>, de <b>bassin de pratique</b> ou de <b>regroupement de plusieurs clubs</b>.</p>
+          <p><b>Vous êtes un club et vous inscrivez votre propre équipe ?</b> Ne remplissez pas ce formulaire : utilisez le <a href="#" onclick="showTab('inscription');return false">formulaire d'inscription des clubs</a>, ouvert à partir du <span data-cfg="ouvertureInscriptionsTxt"></span>.</p>
+        </div>
+      </div>
       <div id="cand-deadline" class="pres-alert" style="margin-bottom:20px">
         <span style="font-size:20px">⏰</span>
         <div><strong>Date limite des candidatures : <span data-cfg="dateLimiteCandidatures"></span></strong><br>
@@ -722,22 +754,22 @@
 
       <div id="cand-closed" class="pres-alert pres-closed" hidden><span style="font-size:20px">🔒</span><div><strong>Les candidatures sont closes.</strong><br>Pour toute question : <a href="mailto:contact@volley83.fr" style="color:var(--accent)">contact@volley83.fr</a></div></div>
 
-      <form class="pub-form" id="cand-form" novalidate onsubmit="submitCandidature(event)">
+      <form class="pub-form" id="cand-form" translate="no" novalidate onsubmit="submitCandidature(event)">
         <fieldset>
           <legend>La structure</legend>
           <div class="pf-row">
             <div class="pf"><label for="c-type">Type de structure <span class="req">*</span></label>
               <select id="c-type" required>
                 <option value="">Choisir…</option>
-                <option>Comité départemental</option>
-                <option>Ligue régionale</option>
-                <option>Bassin de pratique</option>
-                <option>Regroupement de clubs</option>
-                <option>Autre</option>
+                <option value="Comité départemental">Comité départemental</option>
+                <option value="Ligue régionale">Ligue régionale</option>
+                <option value="Bassin de pratique">Bassin de pratique</option>
+                <option value="Regroupement de clubs">Regroupement de clubs</option>
+                <option value="Autre">Autre</option>
               </select></div>
             <div class="pf"><label for="c-structure">Nom (Comité, clubs…) <span class="req">*</span></label><input id="c-structure" required maxlength="150" placeholder="ex. Comité des Alpes-Maritimes"></div>
           </div>
-          <div class="pf"><label for="c-clubs">Clubs concernés</label><input id="c-clubs" maxlength="400" placeholder="Pour un regroupement : liste des clubs"><span class="hint">Rappel : ces clubs ne pourront pas engager d'équipe de club dans le même tableau.</span></div>
+          <div class="pf"><label for="c-clubs">Clubs concernés <span class="hint" style="display:inline">(obligatoire pour un regroupement ou un bassin)</span></label><input id="c-clubs" maxlength="400" placeholder="Pour un regroupement : liste des clubs"><span class="hint">Rappel : ces clubs ne pourront pas engager d'équipe de club dans le même tableau.</span></div>
         </fieldset>
 
         <fieldset>
@@ -2050,7 +2082,7 @@ function applyMode() {
   document.querySelector('#tab-inscription .steps').hidden = ist === 'closed';
   document.getElementById('alert-open-soon').hidden = ist !== 'soon';
   const cta = document.getElementById('cta-inscription');
-  cta.textContent = ist === 'open' ? '📝 S\'inscrire' : ist === 'soon' ? '📅 Inscriptions le ' + TIP.ouvertureInscriptionsTxt.replace(/^\S+ /, '') : '🔒 Inscriptions closes';
+  cta.textContent = ist === 'open' ? '📝 S\'inscrire' : ist === 'soon' ? '📅 Ouverture des inscriptions le ' + TIP.ouvertureInscriptionsTxt.replace(/^\S+ /, '').replace(/ \d{4}$/, '') : '🔒 Inscriptions closes';
   const tabBtn = document.querySelector('.tab-btn[data-tab="inscription"]');
   if (tabBtn) { const d = TIP.ouvertureInscriptions.split('-'); tabBtn.textContent = ist === 'soon' ? '📝 Inscriptions (ouverture le ' + d[2] + '/' + d[1] + ')' : '📝 Inscriptions'; }
   if (ist !== 'open') gformMounted = '';
@@ -2136,6 +2168,9 @@ async function submitCandidature(ev) {
   const $ = id => document.getElementById(id);
   if ($('c-website').value) return; // robot
   const required = ['c-type','c-structure','c-nom','c-tel','c-mail','c-motiv'];
+  // Regroupement ou bassin : la liste des clubs concernés est obligatoire
+  if (['Regroupement de clubs', 'Bassin de pratique'].includes($('c-type').value)) required.push('c-clubs');
+  else $('c-clubs').classList.remove('invalid');
   let firstBad = null;
   required.forEach(id => {
     const el = $(id), bad = !el.value.trim();
@@ -2191,21 +2226,60 @@ async function loadCandidatures() {
     document.getElementById('cand-count').textContent = CANDIDATURES.length;
     if (!CANDIDATURES.length) { list.innerHTML = '<div class="admin-note">Aucune candidature pour le moment.</div>'; return; }
     list.innerHTML = CANDIDATURES.slice().reverse().map(c => `
-      <div class="cand-item">
+      <div class="cand-item clickable" onclick="openCand(${c.id})" title="Voir la candidature en détail">
         <div class="ci-top"><b>${esc(c.structure)}</b>
-          <select onchange="setCandStatut(${c.id}, this.value)">${STATUTS.map(s => `<option${s === c.statut ? ' selected' : ''}>${s}</option>`).join('')}</select></div>
+          <select onclick="event.stopPropagation()" onchange="setCandStatut(${c.id}, this.value)">${STATUTS.map(s => `<option${s === c.statut ? ' selected' : ''}>${s}</option>`).join('')}</select></div>
         <div class="ci-meta">${esc(c.type_structure)} · ${c.edition ? 'TIP ' + esc(c.edition) + 'e · ' : ''}reçue le ${new Date(c.created_at).toLocaleDateString('fr-FR')}</div>
         <div>Garçons : ${c.nb_equipes_g} équipe(s), ~${c.nb_joueurs_g} joueurs · Filles : ${c.nb_equipes_f} équipe(s), ~${c.nb_joueurs_f} joueuses</div>
         <div>${esc(c.contact_nom)} · ${esc(c.contact_tel)} · ${esc(c.contact_mail)}</div>
-        <div style="display:flex;justify-content:flex-end;margin-top:4px"><button class="btn-sm red" style="padding:4px 10px;font-size:12px" onclick="deleteCand(${c.id})">Supprimer</button></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px"><span class="ci-open">🔍 Voir le détail</span><button class="btn-sm red" style="padding:4px 10px;font-size:12px" onclick="event.stopPropagation();deleteCand(${c.id})">Supprimer</button></div>
       </div>`).join('');
   } catch(e) {
     list.innerHTML = '';
     showMsg('cand-msg', 'Impossible de charger les candidatures : ' + e.message, false);
   }
 }
+function openCand(id) {
+  const c = CANDIDATURES.find(x => x.id === id);
+  if (!c) return;
+  let box = document.getElementById('cand-detail');
+  if (!box) {
+    box = document.createElement('div');
+    box.id = 'cand-detail'; box.className = 'cand-detail';
+    box.addEventListener('click', e => { if (e.target === box) closeCand(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && !box.hidden) closeCand(); });
+    document.body.appendChild(box);
+  }
+  const v = x => (x == null || x === '') ? '<span style="color:var(--text-muted)">—</span>' : esc(x);
+  const tel = (c.contact_tel || '').replace(/[^\d+]/g, '');
+  box.innerHTML = `<div class="cd-box" role="dialog" aria-modal="true">
+    <div class="cd-head"><div><h3>${esc(c.structure)}</h3>
+      <div style="color:var(--text-muted);font-size:13px">${esc(c.type_structure)} · ${c.edition ? 'TIP ' + esc(c.edition) + 'e édition · ' : ''}reçue le ${new Date(c.created_at).toLocaleString('fr-FR', { dateStyle: 'long', timeStyle: 'short' })}</div></div>
+      <button class="cd-close" onclick="closeCand()" aria-label="Fermer">×</button></div>
+    <div class="cd-sec">Structure</div>
+    <dl><dt>Type</dt><dd>${v(c.type_structure)}</dd><dt>Nom</dt><dd>${v(c.structure)}</dd><dt>Clubs concernés</dt><dd>${v(c.clubs)}</dd></dl>
+    <div class="cd-sec">Équipes souhaitées</div>
+    <dl><dt>Garçons</dt><dd>${c.nb_equipes_g} équipe(s) · environ ${c.nb_joueurs_g} joueurs</dd>
+        <dt>Filles</dt><dd>${c.nb_equipes_f} équipe(s) · environ ${c.nb_joueurs_f} joueuses</dd></dl>
+    <div class="cd-sec">Contact</div>
+    <dl><dt>Nom</dt><dd>${v(c.contact_nom)}</dd>
+        <dt>Portable</dt><dd>${c.contact_tel ? `<a href="tel:${esc(tel)}">${esc(c.contact_tel)}</a>` : v('')}</dd>
+        <dt>Mail</dt><dd>${c.contact_mail ? `<a href="mailto:${esc(c.contact_mail)}">${esc(c.contact_mail)}</a>` : v('')}</dd></dl>
+    <div class="cd-sec">Motivations</div>
+    <div class="cd-motiv">${v(c.motivations)}</div>
+    <div class="cd-actions">
+      <label style="font-size:14px">Statut :
+        <select onchange="setCandStatut(${c.id}, this.value)">${STATUTS.map(s => `<option${s === c.statut ? ' selected' : ''}>${s}</option>`).join('')}</select></label>
+      <div style="display:flex;gap:8px">
+        ${c.contact_mail ? `<a class="btn-sm" href="mailto:${esc(c.contact_mail)}?subject=${encodeURIComponent('TIP ' + TIP.annee + ' – Votre candidature « ' + c.structure + ' »')}" style="text-decoration:none">✉️ Répondre</a>` : ''}
+        <button class="btn-sm" onclick="closeCand()">Fermer</button>
+      </div>
+    </div></div>`;
+  box.hidden = false;
+}
+function closeCand() { const b = document.getElementById('cand-detail'); if (b) b.hidden = true; }
 async function setCandStatut(id, statut) {
-  try { await sbRpc('update_candidature', { pwd: ADMIN_PWD, cid: id, new_statut: statut }); const c = CANDIDATURES.find(x => x.id === id); if (c) c.statut = statut; showMsg('cand-msg', '✓ Statut mis à jour', true); }
+  try { await sbRpc('update_candidature', { pwd: ADMIN_PWD, cid: id, new_statut: statut }); const c = CANDIDATURES.find(x => x.id === id); if (c) c.statut = statut; showMsg('cand-msg', '✓ Statut mis à jour', true); if (!document.getElementById('cand-detail')?.hidden) loadCandidatures(); }
   catch(e) { showMsg('cand-msg', 'Échec : ' + e.message, false); }
 }
 async function deleteCand(id) {
