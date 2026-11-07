@@ -400,7 +400,7 @@
       <h1>Tournoi International Poussins / Poussines</h1>
       <p id="hdr-sub">Comité du Var de Volley-Ball</p>
     </div>
-    <button class="admin-btn" id="admin-toggle-btn" onclick="toggleAdminPanel()">⚙ Admin</button>
+    <button class="admin-btn" id="admin-toggle-btn" onclick="toggleAdminPanel()">⚙ Accès Comité</button>
   </div>
 </header>
 
@@ -429,13 +429,13 @@
 <div class="admin-overlay" id="admin-overlay" onclick="closeAdminOnBg(event)">
   <div class="admin-modal">
     <div class="admin-header">
-      <h2>⚙ Interface Administrateur</h2>
+      <h2>⚙ Espace Comité</h2>
       <button class="admin-close" onclick="closeAdmin()">✕</button>
     </div>
     <div class="admin-body">
       <!-- LOGIN -->
       <div class="admin-login" id="admin-login-section">
-        <p style="font-size:13px;color:var(--text-muted);margin-bottom:4px;">Accès réservé aux organisateurs</p>
+        <p style="font-size:13px;color:var(--text-muted);margin-bottom:4px;">Réservé au Comité et aux organisateurs du tournoi</p>
         <input type="password" id="admin-pwd" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')doLogin()">
         <button class="btn-login" onclick="doLogin()">Connexion</button>
         <div class="admin-error" id="admin-error"></div>
