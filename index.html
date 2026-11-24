@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+<script src="/comite/session.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TIP – Tournoi International Poussins / Poussines | Comité du Var de Volley-Ball</title>
@@ -2442,6 +2443,8 @@ async function init() {
   applyMode();
   showTab(defaultTab());
   loadArchives();
+  // lien depuis l'Espace Comité (…/tip/#admin) : ouvrir directement l'administration
+  if (location.hash === '#admin') { history.replaceState(null, '', location.pathname); toggleAdminPanel(); }
 
   // Show loading state
   document.querySelectorAll('.pools-grid').forEach(g => {
